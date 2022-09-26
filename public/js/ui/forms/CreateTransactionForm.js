@@ -28,9 +28,8 @@ class CreateTransactionForm extends AsyncForm {
         }
       });
     }
-    
-
   }
+  
 
   /**
    * Создаёт новую транзакцию (доход или расход)
