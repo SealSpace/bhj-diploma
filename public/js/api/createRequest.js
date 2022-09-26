@@ -2,42 +2,38 @@
  * Основная функция для совершения запросов
  * на сервер.
  * */
-const createRequest = (options = {}) => {
-    const xhr = new XMLHttpRequest();
-    let formData = null;
-    let result = '';
+ const createRequest = (options = {}) => {
+    const xhr = new XMLHttpRequest(),
+          formData = new FormData();
+    let queryUrl = '';
 
-    xhr.responseType = 'json';
-
-    if (options.method === 'GET') {
-        if (options.data) {
-            result = '?';
-
-            for (let i in options.data) {
-                result += `${i}=${options.data[i]}&`; 
-            }   
-        }
-    } 
-    
-    else {
-        formData = new FormData();
-        for (let i in options.data) {
-        formData.append( i, options.data[i] ); 
-        }
-    }
+    if (options.data) {
+        if (options.method === 'GET') {
+            queryUrl = '?' + Object.entries(options.data)
+                .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+                .join('&');
+            } else {
+                Object.entries(options.data).forEach(item => formData.append(...item));
+            } 
+        } 
 
     try {
-        xhr.open(`${options.method}`, `${options.url}${result}`);
-        
-        xhr.send(formData);
+        xhr.open(options.method, options.url + queryUrl, true); 
+        xhr.responseType = 'json'; 
+        xhr.send(formData);  
     }
     
-    catch (err) {
+    catch(err) {
         options.callback(err);
     }
 
-    
-    xhr.onload = function() {
-        options.callback(null, xhr.response);
-    }
-};
+    xhr.onload = () => {
+        let err = null,
+            resp = null; 
+            if (xhr.status === 200)  resp = xhr.response;
+                else err = xhr.status;
+                
+            options.callback(err, resp); 
+        };
+    return xhr; 
+}
