@@ -12,7 +12,7 @@ class UserWidget {
    * необходимо выкинуть ошибку.
    * */
   constructor(element){
-    if (!element) console.error('Передан пустой элемент в конструктор!');
+    if (!element) console.error('Передан пустой элемент');
     this.element = element;
   }
 
