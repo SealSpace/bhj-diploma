@@ -14,7 +14,7 @@
    * необходимо выкинуть ошибку.
    * */
   constructor( element ) {
-    if (!element) console.error('Переданный элемент не существует!');
+    if (!element) console.error('Элемент не существует');
     this.element = element;
     this.registerEvents();
     this.update();
@@ -55,7 +55,7 @@
           response.data.forEach(i => {
             this.renderItem(i);
           })
-      } else console.error('Ответ сервера отрицательный!');
+      } else console.error('Ошибка сервера');
     });
   }
 
