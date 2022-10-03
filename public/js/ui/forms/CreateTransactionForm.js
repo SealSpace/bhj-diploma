@@ -16,20 +16,17 @@
    * Получает список счетов с помощью Account.list
    * Обновляет в форме всплывающего окна выпадающий список
    * */
-  renderAccountsList() {
-    const select = this.element.querySelector('.accounts-select');
-    if (User.current()) {
-      Account.list(User.current(), (err, response) => {
-        if (response.success) {
-          select.innerHTML = '';
-          response.data.forEach(item => {
-            select.insertAdjacentHTML('beforeend', `<option value="${item.id}">${item.name}</option>`)
-          })
-        }
-      });
-    }
+   renderAccountsList() {
+    Account.list(null, (err, resp) => {
+      if (resp?.success) {
+        let cHTML = '';
+        resp.data.forEach(d => cHTML += `<option value="${d.id}">${d.name}</option>`);
+        this.element.querySelector('.accounts-select').innerHTML = cHTML;
+      }
+    });
   }
-   
+
+
 
   /**
    * Создаёт новую транзакцию (доход или расход)
@@ -45,7 +42,8 @@
         this.element.reset();
         if (modal === 'newExpense') {
           App.getModal('newExpense').close();
-        } else {
+        }
+        else {
           App.getModal('newIncome').close();
         }
       }
