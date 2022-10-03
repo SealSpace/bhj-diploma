@@ -12,7 +12,8 @@
             queryUrl = '?' + Object.entries(options.data)
                 .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
                 .join('&');
-            } else {
+            }
+             else {
                 Object.entries(options.data).forEach(item => formData.append(...item));
             } 
         } 
