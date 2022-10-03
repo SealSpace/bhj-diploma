@@ -3,7 +3,7 @@
  * отображения счетов в боковой колонке
  * */
 
- class AccountsWidget {
+class AccountsWidget {
   /**
    * Устанавливает текущий элемент в свойство element
    * Регистрирует обработчики событий с помощью
@@ -14,7 +14,9 @@
    * необходимо выкинуть ошибку.
    * */
   constructor( element ) {
-    if (!element) console.error('Элемент не существует');
+    if (!element) {
+      throw new Error('ошибка,элемент не существует');
+    }
     this.element = element;
     this.registerEvents();
     this.update();
@@ -55,8 +57,8 @@
           response.data.forEach(i => {
             this.renderItem(i);
           })
-      } else console.error('Ошибка сервера');
-    });
+      } 
+   });
   }
 
   /**
