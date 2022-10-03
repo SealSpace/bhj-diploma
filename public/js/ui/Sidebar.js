@@ -17,17 +17,14 @@
    * переключает два класса для body: sidebar-open и sidebar-collapse
    * при нажатии на кнопку .sidebar-toggle
    * */
-  static initToggleButton() {
-    document.querySelector('.sidebar-toggle').addEventListener('click', (e) => {
-        e.preventDefault();
-        if (!document.body.classList.contains('sidebar-open')) {
-          document.body.classList.remove('sidebar-collapse');
-            document.body.classList.add('sidebar-open');
-        } else {
-            document.body.classList.remove('sidebar-open');
-            document.body.classList.add('sidebar-collapse');
-        }
-    });
+   static initToggleButton() {
+    const side = document.querySelector('.sidebar-toggle');
+    const bd = document.querySelector('.sidebar-mini');
+
+    side.addEventListener('click', (event) => {
+      bd.classList.toggle('sidebar-open');
+      bd.classList.toggle('sidebar-collapse');
+    })
   }
 
   /**
