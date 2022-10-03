@@ -15,9 +15,7 @@
           this.element.reset();
           App.setState('user-logged');
           App.getModal('register').close();
-        } else {
-          console.error(response.error);
         }
-     })
+      })
   }
 }
