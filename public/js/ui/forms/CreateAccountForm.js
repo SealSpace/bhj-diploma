@@ -8,13 +8,13 @@
    * окно в случае успеха, а также вызывает App.update()
    * и сбрасывает форму
    * */
-  onSubmit(data) {
+   onSubmit(data) {
     Account.create(data, (err, response) => {
-        if (response && response.success) {
-          this.element.reset();
-          App.getModal('createAccount').close();
-          App.update();
-        } else console.error(response.error);
+      if (response.success) {
+        App.getModal('createAccount').close();
+        App.update();
+        this.element.reset();
+      }
     });
   }
 }
