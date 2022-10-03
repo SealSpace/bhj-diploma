@@ -13,7 +13,9 @@
    * через registerEvents()
    * */
   constructor(element) {
-    if (!element) console.error('Передан пустой элемент');
+    if (!element) {
+      throw new Error('Нельзя передать пустой элемент');
+    }
     this.element = element;
     this.registerEvents();
   }
